@@ -39,7 +39,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Нейроны */
+        /* Нейроны — плавное самостоятельное движение */
         #neuron-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -77,7 +77,6 @@
             transition: transform 0.6s ease;
         }
 
-        /* Красивый шрифт для BLACKSOUL */
         .hero-text {
             font-family: 'Inter', system-ui, sans-serif;
             font-size: 102px;
@@ -368,6 +367,7 @@
 </head>
 <body>
 
+    <!-- Нейроны с самостоятельным движением -->
     <canvas id="neuron-canvas"></canvas>
 
     <!-- HERO -->
@@ -413,13 +413,15 @@
                     <p>Работа с невзаимозаменяемыми токенами: минтинг, трейдинг и коллаборации.</p>
                 </div>
                 <!-- ВУ и Narko на одной строке по центру -->
-                <div class="service-card" style="grid-column: span 1; margin: 0 auto; max-width: 380px;">
-                    <h3>ВУ</h3>
-                    <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
-                </div>
-                <div class="service-card" style="grid-column: span 1; margin: 0 auto; max-width: 380px;">
-                    <h3>Narko</h3>
-                    <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
+                <div style="grid-column: 2 / 3; display: flex; gap: 28px; justify-content: center; margin: 0 auto;">
+                    <div class="service-card" style="max-width: 380px;">
+                        <h3>ВУ</h3>
+                        <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
+                    </div>
+                    <div class="service-card" style="max-width: 380px;">
+                        <h3>Narko</h3>
+                        <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -485,7 +487,7 @@
     </div>
 
     <script>
-        // Нейроны
+        // ====================== НЕЙРОНЫ — самостоятельное движение ======================
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -494,17 +496,21 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.9;
-                this.vy = (Math.random() - 0.5) * 0.9;
+                this.vx = (Math.random() - 0.5) * 1.1;
+                this.vy = (Math.random() - 0.5) * 1.1;
                 this.radius = Math.random() * 3.5 + 2;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
+
+                // Отскок от границ
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                this.vx *= 0.975;
-                this.vy *= 0.975;
+
+                // Плавное замедление
+                this.vx *= 0.97;
+                this.vy *= 0.97;
             }
         }
 
@@ -515,29 +521,32 @@
 
         function createNeurons(count) {
             particles = [];
-            for (let i = 0; i < count; i++) particles.push(new Neuron());
+            for (let i = 0; i < count; i++) {
+                particles.push(new Neuron());
+            }
         }
 
         function drawNeurons() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.09)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.085)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => {
                 p.update();
-                ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                ctx.fillStyle = 'rgba(255,255,255,0.88)';
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
             });
 
+            // Соединения
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 155) {
-                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/155})`;
-                        ctx.lineWidth = 1;
+                    if (dist < 160) {
+                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/160})`;
+                        ctx.lineWidth = 1.1;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -545,10 +554,11 @@
                     }
                 }
             }
+
             requestAnimationFrame(drawNeurons);
         }
 
-        // Новости
+        // ====================== Остальной код ======================
         const newsData = [
             { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
             { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
@@ -595,14 +605,15 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Запуск сайта
         window.onload = () => {
             resizeCanvas();
-            createNeurons(100);
+            createNeurons(110);
             drawNeurons();
 
             window.addEventListener('resize', () => {
                 resizeCanvas();
-                createNeurons(100);
+                createNeurons(110);
             });
 
             renderNews();
