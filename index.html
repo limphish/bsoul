@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BSOUL TEAM</title>
+
+<!-- META -->
+<meta name="description" content="BSoul Team — система заработка и боты">
+<meta property="og:title" content="BSoul Team">
+<meta property="og:description" content="Присоединяйся к команде">
+<meta property="og:image" content="https://i.ibb.co/yFgDLpvL/Logo.png">
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #0a0a0a;
+    --card: #141414;
+    --border: #2a2a2a;
+    --text: #ffffff;
+    --gray: #9ca3af;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* PRELOADER */
+.preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.header h1 {
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.header p {
+    color: var(--gray);
+    margin-top: 10px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 24px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: #ccc;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    gap: 20px;
+    padding: 40px;
+}
+
+@media(min-width: 768px){
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* CARD */
+.card {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: white;
+}
+
+/* SECTION */
+.section {
+    text-align: center;
+    padding: 20px;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #111;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+    <h2>Загрузка...</h2>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h3>Добро пожаловать в BSoul Team</h3>
+        <p>Сохрани ссылку чтобы не потерять доступ</p>
+        <button class="btn" onclick="closeModal()">Понятно</button>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>BSOUL TEAM</h1>
+    <p>Начни зарабатывать уже сегодня</p>
+</div>
+
+<!-- MENU -->
+<div class="section">
+    <h2>Меню</h2>
+    <div class="grid">
+
+        <div class="card">
+            <h3>Персонал</h3>
+            <a href="https://staff.bsoul.team" class="btn">Открыть</a>
+        </div>
+
+        <div class="card">
+            <h3>Боты</h3>
+            <a href="https://bots.bsoul.team" class="btn">Открыть</a>
+        </div>
+
+        <div class="card">
+            <h3>Топ</h3>
+            <a href="https://top.bsoul.team" class="btn">Открыть</a>
+        </div>
+
+        <div class="card">
+            <h3>Поддержка</h3>
+            <a href="https://t.me/support" class="btn">Открыть</a>
+        </div>
+
+        <div class="card">
+            <h3>Касса команды</h3>
+            <a href="#" class="btn">Открыть</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// PRELOADER
+window.onload = () => {
+    setTimeout(() => {
+        document.getElementById("preloader").style.display = "none";
+        checkModal();
+        applyReferral();
+    }, 1500);
+}
+
+// MODAL
+function checkModal() {
+    if (!localStorage.getItem("modal")) {
+        document.getElementById("modal").style.display = "flex";
+    }
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+    localStorage.setItem("modal", true);
+}
+
+// REF SYSTEM
+function getRef() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("r");
+}
+
+function applyReferral() {
+    const ref = getRef();
+    if (!ref) return;
+
+    document.querySelectorAll("a").forEach(link => {
+        if (link.href.includes("bsoul.team")) {
+            link.href += `?ref=${ref}`;
+        }
+    });
+}
+</script>
+
+</body>
+</html>
