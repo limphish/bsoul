@@ -6,7 +6,7 @@
     <meta name="description" content="BlackSoul — команда профессионалов">
     <title>BlackSoul</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
         :root {
             --bg: #000000;
@@ -39,7 +39,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Нейроны — только самостоятельное движение */
+        /* Нейроны */
         #neuron-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -77,12 +77,12 @@
             transition: transform 0.6s ease;
         }
 
-        /* Times New Roman для BLACKSOUL */
+        /* Красивый шрифт для BLACKSOUL */
         .hero-text {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 108px;
-            font-weight: 700;
-            letter-spacing: -5px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 102px;
+            font-weight: 900;
+            letter-spacing: -6px;
             animation: textPop 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             margin-bottom: 30px;
             text-transform: uppercase;
@@ -161,7 +161,7 @@
             line-height: 1.5;
         }
 
-        /* Преимущества — в стиле сервисов */
+        /* Преимущества */
         .advantages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -259,7 +259,7 @@
             color: #666666;
         }
 
-        /* Плавающая кнопка с эмодзи */
+        /* Плавающая кнопка */
         .fab {
             position: fixed;
             bottom: 40px;
@@ -330,8 +330,8 @@
 
         @media (max-width: 768px) {
             .hero-text {
-                font-size: 72px;
-                letter-spacing: -3px;
+                font-size: 68px;
+                letter-spacing: -4px;
             }
             .photo-frame {
                 width: 240px;
@@ -361,14 +361,13 @@
 
         @media (max-width: 480px) {
             .hero-text {
-                font-size: 58px;
+                font-size: 54px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Нейроны (без реакции на курсор) -->
     <canvas id="neuron-canvas"></canvas>
 
     <!-- HERO -->
@@ -386,11 +385,11 @@
     <section id="team">
         <h2 class="section-header">О команде</h2>
         <div class="big-section">
-            <p style="font-size: 22px; max-width: 720px; margin: 0 auto;">
+            <p style="font-size: 21px; max-width: 780px; margin: 0 auto; text-align: center; line-height: 1.65;">
                 BlackSoul — это закрытая команда профессионалов, которая работает в тени и даёт своим участникам максимум возможностей. 
                 Мы объединяем опыт, технологии и скорость. Присоединяйся — и начни зарабатывать уже сегодня.
             </p>
-            <p style="margin-top: 32px; font-size: 18px; color: #aaaaaa;">
+            <p style="margin-top: 28px; font-size: 18px; color: #aaaaaa; text-align: center;">
                 Более 3 лет на рынке • 1200+ участников • Полная анонимность и защита
             </p>
         </div>
@@ -413,11 +412,12 @@
                     <h3>NFT</h3>
                     <p>Работа с невзаимозаменяемыми токенами: минтинг, трейдинг и коллаборации.</p>
                 </div>
-                <div class="service-card" style="grid-column: 2 / 3; justify-self: center; max-width: 380px;">
+                <!-- ВУ и Narko на одной строке по центру -->
+                <div class="service-card" style="grid-column: span 1; margin: 0 auto; max-width: 380px;">
                     <h3>ВУ</h3>
                     <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
                 </div>
-                <div class="service-card" style="grid-column: 2 / 3; justify-self: center; max-width: 380px;">
+                <div class="service-card" style="grid-column: span 1; margin: 0 auto; max-width: 380px;">
                     <h3>Narko</h3>
                     <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
                 </div>
@@ -425,13 +425,13 @@
         </div>
     </section>
 
-    <!-- Последние новости -->
+    <!-- Новости -->
     <section id="news">
         <h2 class="section-header">Последние новости</h2>
         <div id="news-container" class="news-grid"></div>
     </section>
 
-    <!-- Преимущества команды (в стиле сервисов) -->
+    <!-- Преимущества -->
     <section id="advantages">
         <h2 class="section-header">Преимущества команды</h2>
         <div class="big-section">
@@ -472,7 +472,7 @@
         </p>
     </footer>
 
-    <!-- Плавающая кнопка с эмодзи -->
+    <!-- Плавающая кнопка -->
     <div class="fab" id="fab-button" onclick="toggleMenu()">📌</div>
 
     <div class="menu" id="floating-menu">
@@ -485,7 +485,7 @@
     </div>
 
     <script>
-        // ====================== НЕЙРОНЫ (без курсора) ======================
+        // Нейроны
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -501,10 +501,8 @@
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
                 this.vx *= 0.975;
                 this.vy *= 0.975;
             }
@@ -517,9 +515,7 @@
 
         function createNeurons(count) {
             particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push(new Neuron());
-            }
+            for (let i = 0; i < count; i++) particles.push(new Neuron());
         }
 
         function drawNeurons() {
@@ -534,7 +530,6 @@
                 ctx.fill();
             });
 
-            // Соединения между нейронами
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -550,37 +545,21 @@
                     }
                 }
             }
-
             requestAnimationFrame(drawNeurons);
         }
 
-        // ====================== Новости и функции ======================
+        // Новости
         const newsData = [
-            {
-                date: "11.04.2026",
-                theme: "Новый уровень безопасности",
-                text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.",
-                link: "#"
-            },
-            {
-                date: "09.04.2026",
-                theme: "Запуск VIP-акции",
-                text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.",
-                link: "#"
-            },
-            {
-                date: "07.04.2026",
-                theme: "Обновление мануалов",
-                text: "Добавлены новые гайды по Trade и NFT. Скачивайте в личном кабинете.",
-                link: "#"
-            }
+            { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
+            { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
+            { date: "07.04.2026", theme: "Обновление мануалов", text: "Добавлены новые гайды по Trade и NFT. Скачивайте в личном кабинете.", link: "#" }
         ];
 
         function renderNews() {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
             newsData.forEach(news => {
-                const cardHTML = `
+                container.innerHTML += `
                     <div class="news-card">
                         <div class="news-date">${news.date}</div>
                         <div class="news-content">
@@ -590,7 +569,6 @@
                         </div>
                     </div>
                 `;
-                container.innerHTML += cardHTML;
             });
         }
 
@@ -617,7 +595,6 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Запуск
         window.onload = () => {
             resizeCanvas();
             createNeurons(100);
