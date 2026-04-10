@@ -28,22 +28,27 @@
             line-height: 1.6;
         }
 
-        /* Анимация появления как на grok.com */
+        /* Анимация появления */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes textPop {
             0% { transform: scale(0.8); opacity: 0; }
             60% { transform: scale(1.15); }
             100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* НЕЙРОНЫ — полный фоновый холст */
+        #neuron-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hero {
@@ -112,6 +117,7 @@
             padding: 120px 40px;
             max-width: 1280px;
             margin: 0 auto;
+            position: relative;
         }
 
         h2 {
@@ -122,7 +128,7 @@
             letter-spacing: -2px;
         }
 
-        /* Блок команды */
+        /* Все блоки с закруглёнными краями */
         .team-info {
             background: #111111;
             border-radius: 32px;
@@ -132,7 +138,6 @@
             margin: 0 auto;
         }
 
-        /* Сервисы */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -141,7 +146,7 @@
 
         .service-card {
             background: #111111;
-            border-radius: 24px;
+            border-radius: 32px;
             padding: 40px 20px;
             text-align: center;
             transition: all 0.3s ease;
@@ -160,7 +165,6 @@
             margin-top: 20px;
         }
 
-        /* Новости */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -169,7 +173,7 @@
 
         .news-card {
             background: #111111;
-            border-radius: 24px;
+            border-radius: 32px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
@@ -223,16 +227,15 @@
             transform: translateX(6px);
         }
 
-        /* Преимущества */
         .advantages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
         .adv-card {
             background: #111111;
-            border-radius: 24px;
+            border-radius: 32px;
             padding: 40px 32px;
             transition: all 0.3s ease;
             border: 1px solid #222222;
@@ -264,7 +267,7 @@
             color: #666666;
         }
 
-        /* Плавающая панель (как просили — круг внизу справа) */
+        /* Плавающая кнопка */
         .fab {
             position: fixed;
             bottom: 40px;
@@ -332,9 +335,15 @@
             background: #222222;
         }
 
-        /* Скролл */
         .section-header {
             animation: fadeInUp 1s ease forwards;
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1280px) {
+            .advantages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -349,15 +358,42 @@
             section {
                 padding: 80px 20px;
             }
+            h2 {
+                font-size: 38px;
+            }
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+            .fab {
+                bottom: 24px;
+                right: 24px;
+                width: 58px;
+                height: 58px;
+            }
+            .menu {
+                right: 24px;
+                min-width: 220px;
+            }
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text {
+                font-size: 52px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- НЕЙРОНЫ — анимированный фон -->
+    <canvas id="neuron-canvas"></canvas>
+
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="photo-frame">
-            <!-- Замените src на ваше фото (квадратное) -->
             <img src="https://picsum.photos/id/1015/800/800" alt="BlackSoul Team Photo">
         </div>
         
@@ -366,11 +402,6 @@
         <a href="#" onclick="goToBot()" class="hero-button">
             Перейти в бота
         </a>
-
-        <!-- Лёгкая анимация частиц в фоне (как на grok) -->
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: -1;">
-            <div id="particles" style="position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);"></div>
-        </div>
     </section>
 
     <!-- БЛОК О КОМАНДЕ -->
@@ -391,21 +422,11 @@
     <section id="services" style="background: #111111;">
         <h2 class="section-header">Наши сервисы</h2>
         <div class="services-grid">
-            <div class="service-card">
-                <h3>Escort</h3>
-            </div>
-            <div class="service-card">
-                <h3>Trade</h3>
-            </div>
-            <div class="service-card">
-                <h3>NFT</h3>
-            </div>
-            <div class="service-card">
-                <h3>ВУ</h3>
-            </div>
-            <div class="service-card">
-                <h3>Narko</h3>
-            </div>
+            <div class="service-card"><h3>Escort</h3></div>
+            <div class="service-card"><h3>Trade</h3></div>
+            <div class="service-card"><h3>NFT</h3></div>
+            <div class="service-card"><h3>ВУ</h3></div>
+            <div class="service-card"><h3>Narko</h3></div>
         </div>
     </section>
 
@@ -417,41 +438,30 @@
         </div>
     </section>
 
-    <!-- ПРЕИМУЩЕСТВА -->
+    <!-- ПРЕИМУЩЕСТВА (убран «Материалы») -->
     <section id="advantages" style="background: #111111;">
         <h2 class="section-header">Преимущества команды</h2>
         <div class="advantages-grid">
-            <!-- Карточка 1 -->
             <div class="adv-card">
                 <h3>Мануалы</h3>
                 <p>Подробная инструкция для начала работы.</p>
             </div>
-            <!-- Карточка 2 -->
-            <div class="adv-card">
-                <h3>Материалы</h3>
-                <p>Инструмент для оформления аккаунта.</p>
-            </div>
-            <!-- Карточка 3 -->
             <div class="adv-card">
                 <h3>Безопасность</h3>
                 <p>Защита ваших средств.</p>
             </div>
-            <!-- Карточка 4 -->
             <div class="adv-card">
                 <h3>Быстрый старт</h3>
                 <p>Начните зарабатывать уже сейчас.</p>
             </div>
-            <!-- Карточка 5 -->
             <div class="adv-card">
                 <h3>Поддержка</h3>
                 <p>Быстрый ответ от технической поддержки. Работа 24 на 7.</p>
             </div>
-            <!-- Карточка 6 -->
             <div class="adv-card">
                 <h3>Акции</h3>
                 <p>Каждую неделю акции с процентом выплат, розыгрыши аккаунтов, VIP материалов, VPN ключей и многим другим.</p>
             </div>
-            <!-- Карточка 7 -->
             <div class="adv-card">
                 <h3>Наставники</h3>
                 <p>Опытные наставники в своём направлении.</p>
@@ -484,7 +494,111 @@
     </div>
 
     <script>
-        // === ДАННЫЕ НОВОСТЕЙ (редактируй здесь) ===
+        // ====================== НЕЙРОНЫ — анимированный фон ======================
+        const canvas = document.getElementById('neuron-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: 0, y: 0 };
+
+        class Neuron {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.4;
+                this.vy = (Math.random() - 0.5) * 1.4;
+                this.radius = Math.random() * 3.5 + 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // отскок от краёв
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                // реакция на курсор (притяжение + лёгкое ускорение)
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 320 && distance > 1) {
+                    this.vx += (dx / distance) * 2.2;
+                    this.vy += (dy / distance) * 2.2;
+                }
+
+                // лёгкое замедление
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createNeurons(count) {
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Neuron());
+            }
+        }
+
+        function drawNeurons() {
+            // лёгкий след
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // рисуем нейроны
+            particles.forEach(p => {
+                p.update();
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // соединения между нейронами
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 170) {
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 170})`;
+                        ctx.lineWidth = 1.1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // яркие связи с курсором
+            if (mouse.x && mouse.y) {
+                particles.forEach(p => {
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 260) {
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.6 - dist / 260 * 0.5})`;
+                        ctx.lineWidth = 1.4;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            requestAnimationFrame(drawNeurons);
+        }
+
+        // ====================== ОСНОВНОЙ СКРИПТ ======================
         const newsData = [
             {
                 date: "11.04.2026",
@@ -506,11 +620,9 @@
             }
         ];
 
-        // Генерация новостей
         function renderNews() {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
-            
             newsData.forEach(news => {
                 const cardHTML = `
                     <div class="news-card">
@@ -526,18 +638,14 @@
             });
         }
 
-        // Переход в бота (замени ссылку на свой Telegram-бот)
         function goToBot() {
-            window.open('https://t.me/your_bot_username', '_blank'); // ← замени на свой бот
+            window.open('https://t.me/your_bot_username', '_blank');
         }
 
-        // Переключение плавающего меню
         let menuOpen = false;
-        
         function toggleMenu() {
             const menu = document.getElementById('floating-menu');
             menuOpen = !menuOpen;
-            
             if (menuOpen) {
                 menu.classList.add('show');
                 document.getElementById('fab-button').style.transform = 'rotate(135deg)';
@@ -547,21 +655,33 @@
             }
         }
 
-        // Плавный скролл к секции
         function navigateToSection(section) {
-            toggleMenu(); // закрываем меню
+            toggleMenu();
             const el = document.getElementById(section);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Запуск анимаций при загрузке
-        window.onload = function() {
-            // Рендерим новости
+        // Запуск всего
+        window.onload = function () {
+            // Нейроны
+            resizeCanvas();
+            createNeurons(110);
+            drawNeurons();
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                createNeurons(110);
+            });
+
+            document.addEventListener('mousemove', e => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            // Новости
             renderNews();
 
-            // Лёгкая анимация текста (дополнительный эффект)
+            // Анимация главного текста
             const mainText = document.getElementById('main-text');
             mainText.style.opacity = '0';
             setTimeout(() => {
@@ -569,7 +689,7 @@
                 mainText.style.opacity = '1';
             }, 300);
 
-            console.log('%c✅ Сайт BlackSoul успешно создан! Дизайн полностью в стиле grok.com (чёрно-белый, минималистичный). Редактируй новости в скрипте выше.', 'color: #fff; background: #000; padding: 4px 8px; border-radius: 4px;');
+            console.log('%c✅ BlackSoul сайт обновлён: нейроны + закругления + адаптив + убран «Материалы»', 'color:#fff;background:#000;padding:4px 8px;border-radius:4px');
         };
     </script>
 </body>
