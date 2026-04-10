@@ -258,7 +258,7 @@
             color: #666666;
         }
 
-        /* Плавающая кнопка */
+        /* Плавающая кнопка — теперь с иконкой меню (три линии) */
         .fab {
             position: fixed;
             bottom: 40px;
@@ -271,7 +271,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 34px;           /* размер иконки */
+            line-height: 1;
             box-shadow: 0 10px 40px rgba(255,255,255,0.3);
             cursor: pointer;
             z-index: 9999;
@@ -354,7 +355,7 @@
                 right: 24px;
                 width: 58px;
                 height: 58px;
-                font-size: 28px;
+                font-size: 30px;
             }
         }
 
@@ -372,9 +373,9 @@
     <!-- HERO -->
     <section class="hero">
         <div class="photo-frame">
-            <img src="https://i.ibb.co/P83nqzT/temp-image.jpg" alt="BlackSoul Team Photo">
+            <img src="https://picsum.photos/id/1015/800/800" alt="BlackSoul Team Photo">
         </div>
-        <h1 class="hero-text" id="main-text">Black Soul</h1>
+        <h1 class="hero-text" id="main-text">BLACKSOUL</h1>
         <a href="#" onclick="goToBot()" class="hero-button">
             Перейти в бота
         </a>
@@ -474,8 +475,8 @@
         </p>
     </footer>
 
-    <!-- Плавающая кнопка -->
-    <div class="fab" id="fab-button" onclick="toggleMenu()">📌</div>
+    <!-- Плавающая кнопка — теперь с иконкой меню (три линии) -->
+    <div class="fab" id="fab-button" onclick="toggleMenu()">☰</div>
 
     <div class="menu" id="floating-menu">
         <a href="#" class="menu-item" onclick="navigateToSection('team')">Начать</a>
@@ -487,7 +488,7 @@
     </div>
 
     <script>
-        // ====================== УЛУЧШЕННЫЕ НЕЙРОНЫ — всегда в движении ======================
+        // ====================== НЕЙРОНЫ ======================
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -496,28 +497,17 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.8;   // увеличена начальная скорость
-                this.vy = (Math.random() - 0.5) * 1.8;
-                this.radius = Math.random() * 3.2 + 1.8;
-                this.friction = 0.965;                   // чуть меньше трения = дольше движется
+                this.vx = (Math.random() - 0.5) * 1.1;
+                this.vy = (Math.random() - 0.5) * 1.1;
+                this.radius = Math.random() * 3.5 + 2;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
-                // Отскок от краёв с небольшой энергией
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -0.92;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -0.92;
-
-                // Лёгкое случайное ускорение, чтобы никогда не замирали
-                if (Math.random() < 0.03) {
-                    this.vx += (Math.random() - 0.5) * 0.8;
-                    this.vy += (Math.random() - 0.5) * 0.8;
-                }
-
-                // Плавное замедление
-                this.vx *= this.friction;
-                this.vy *= this.friction;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                this.vx *= 0.97;
+                this.vy *= 0.97;
             }
         }
 
@@ -528,35 +518,29 @@
 
         function createNeurons(count) {
             particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push(new Neuron());
-            }
+            for (let i = 0; i < count; i++) particles.push(new Neuron());
         }
 
         function drawNeurons() {
-            // Более заметный, но красивый след
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.075)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.085)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => {
                 p.update();
-
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+                ctx.fillStyle = 'rgba(255,255,255,0.88)';
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
             });
 
-            // Соединения
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 165) {
-                        ctx.strokeStyle = `rgba(255,255,255,${0.75 - dist/165})`;
-                        ctx.lineWidth = 1.05;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 160) {
+                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/160})`;
+                        ctx.lineWidth = 1.1;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -564,11 +548,10 @@
                     }
                 }
             }
-
             requestAnimationFrame(drawNeurons);
         }
 
-        // ====================== Остальной код ======================
+        // Новости и функции
         const newsData = [
             { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
             { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
@@ -617,12 +600,12 @@
 
         window.onload = () => {
             resizeCanvas();
-            createNeurons(120);        // чуть больше частиц для живости
+            createNeurons(110);
             drawNeurons();
 
             window.addEventListener('resize', () => {
                 resizeCanvas();
-                createNeurons(120);
+                createNeurons(110);
             });
 
             renderNews();
