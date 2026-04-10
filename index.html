@@ -399,7 +399,6 @@
         <h2 class="section-header">Наши сервисы</h2>
         <div class="big-section">
             <div class="services-grid">
-                <!-- Первая строка - 3 карточки -->
                 <div class="service-card">
                     <h3>Escort</h3>
                     <p>Профессиональное сопровождение и организация встреч высшего уровня.</p>
@@ -412,15 +411,18 @@
                     <h3>NFT</h3>
                     <p>Работа с невзаимозаменяемыми токенами: минтинг, трейдинг и коллаборации.</p>
                 </div>
-
-                <!-- Вторая строка - ВУ и Narko по центру, одинакового размера -->
-                <div class="service-card" style="grid-column: 2;">
+                <div class="service-card">
                     <h3>ВУ</h3>
                     <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
                 </div>
-                <div class="service-card" style="grid-column: 3;">
+                <div class="service-card">
                     <h3>Narko</h3>
                     <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
+                </div>
+                <!-- Новый блок Stiller -->
+                <div class="service-card">
+                    <h3>Stiller</h3>
+                    <p>Кража коллекционных токенов с помощью специализированных программ.</p>
                 </div>
             </div>
         </div>
@@ -486,7 +488,7 @@
     </div>
 
     <script>
-        // Нейроны — самостоятельное движение
+        // ====================== НЕЙРОНЫ ======================
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -549,7 +551,7 @@
             requestAnimationFrame(drawNeurons);
         }
 
-        // Новости и функции
+        // Новости
         const newsData = [
             { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
             { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
