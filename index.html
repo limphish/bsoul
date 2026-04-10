@@ -39,7 +39,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Нейроны — плавное самостоятельное движение */
+        /* Нейроны */
         #neuron-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -367,7 +367,6 @@
 </head>
 <body>
 
-    <!-- Нейроны с самостоятельным движением -->
     <canvas id="neuron-canvas"></canvas>
 
     <!-- HERO -->
@@ -400,6 +399,7 @@
         <h2 class="section-header">Наши сервисы</h2>
         <div class="big-section">
             <div class="services-grid">
+                <!-- Первая строка - 3 карточки -->
                 <div class="service-card">
                     <h3>Escort</h3>
                     <p>Профессиональное сопровождение и организация встреч высшего уровня.</p>
@@ -412,16 +412,15 @@
                     <h3>NFT</h3>
                     <p>Работа с невзаимозаменяемыми токенами: минтинг, трейдинг и коллаборации.</p>
                 </div>
-                <!-- ВУ и Narko на одной строке по центру -->
-                <div style="grid-column: 2 / 3; display: flex; gap: 28px; justify-content: center; margin: 0 auto;">
-                    <div class="service-card" style="max-width: 380px;">
-                        <h3>ВУ</h3>
-                        <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
-                    </div>
-                    <div class="service-card" style="max-width: 380px;">
-                        <h3>Narko</h3>
-                        <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
-                    </div>
+
+                <!-- Вторая строка - ВУ и Narko по центру, одинакового размера -->
+                <div class="service-card" style="grid-column: 2;">
+                    <h3>ВУ</h3>
+                    <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
+                </div>
+                <div class="service-card" style="grid-column: 3;">
+                    <h3>Narko</h3>
+                    <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
                 </div>
             </div>
         </div>
@@ -487,7 +486,7 @@
     </div>
 
     <script>
-        // ====================== НЕЙРОНЫ — самостоятельное движение ======================
+        // Нейроны — самостоятельное движение
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -503,12 +502,8 @@
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
-                // Отскок от границ
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-                // Плавное замедление
                 this.vx *= 0.97;
                 this.vy *= 0.97;
             }
@@ -521,9 +516,7 @@
 
         function createNeurons(count) {
             particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push(new Neuron());
-            }
+            for (let i = 0; i < count; i++) particles.push(new Neuron());
         }
 
         function drawNeurons() {
@@ -538,7 +531,6 @@
                 ctx.fill();
             });
 
-            // Соединения
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -554,11 +546,10 @@
                     }
                 }
             }
-
             requestAnimationFrame(drawNeurons);
         }
 
-        // ====================== Остальной код ======================
+        // Новости и функции
         const newsData = [
             { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
             { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
@@ -605,7 +596,6 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Запуск сайта
         window.onload = () => {
             resizeCanvas();
             createNeurons(110);
