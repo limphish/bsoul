@@ -39,7 +39,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Нейроны — всегда в движении */
+        /* Нейроны */
         #neuron-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -68,8 +68,8 @@
         }
 
         .photo-frame {
-            width: 320px;
-            height: 320px;
+            width: 280px;
+            height: 280px;
             border-radius: 32px;
             overflow: hidden;
             border: 6px solid #ffffff;
@@ -81,25 +81,21 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
         }
 
         .hero-text {
             font-family: 'Inter', system-ui, sans-serif;
-            font-size: 102px;
+            font-size: 82px;
             font-weight: 900;
-            letter-spacing: -6px;
+            letter-spacing: -5px;
             animation: textPop 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             margin-bottom: 30px;
             text-transform: uppercase;
         }
 
         .hero-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px 52px;
-            font-size: 22px;
+            padding: 16px 48px;
+            font-size: 20px;
             font-weight: 600;
             background-color: #ffffff;
             color: #000000;
@@ -110,11 +106,10 @@
 
         .hero-button:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(255,255,255,0.25);
         }
 
         section {
-            padding: 120px 40px;
+            padding: 100px 20px;
             max-width: 1280px;
             margin: 0 auto;
             position: relative;
@@ -129,108 +124,102 @@
         }
 
         h2 {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             letter-spacing: -2px;
         }
 
         .big-section {
             background: #111111;
-            border-radius: 40px;
-            padding: 70px 60px;
+            border-radius: 32px;
+            padding: 50px 30px;
         }
 
         /* Сервисы и преимущества */
         .services-grid, .advantages-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
 
         .service-card, .adv-card {
             background: #1a1a1a;
-            border-radius: 32px;
-            padding: 40px 24px;
+            border-radius: 28px;
+            padding: 32px 20px;
             text-align: center;
             transition: all 0.4s ease;
             border: 1px solid #222222;
         }
 
         .service-card:hover, .adv-card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-10px);
             border-color: #ffffff;
         }
 
         .service-card h3, .adv-card h3 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 600;
-            margin: 20px 0 12px;
+            margin: 16px 0 10px;
         }
 
         .service-card p, .adv-card p {
-            font-size: 16px;
+            font-size: 15.5px;
             color: #bbbbbb;
             line-height: 1.5;
         }
 
-        /* Новости — классический вид */
+        /* Новости */
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
 
         .news-card {
             background: #111111;
-            border-radius: 32px;
+            border-radius: 28px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .news-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
         }
 
         .news-date {
-            padding: 20px 28px 0;
-            font-size: 15px;
+            padding: 18px 24px 0;
+            font-size: 14.5px;
             color: #888888;
-            font-weight: 500;
         }
 
         .news-content {
-            padding: 0 28px 28px;
+            padding: 0 24px 24px;
         }
 
         .news-theme {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 600;
-            margin: 12px 0 16px;
+            margin: 12px 0 14px;
         }
 
         .news-text {
-            font-size: 17px;
+            font-size: 16px;
             color: #cccccc;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .news-link {
             color: #ffffff;
             font-weight: 600;
-            text-decoration: none;
-        }
-
-        .news-link:hover {
-            text-decoration: underline;
         }
 
         /* Футер */
         footer {
             background: #000000;
             border-top: 1px solid #222222;
-            padding: 60px 40px 40px;
+            padding: 50px 20px 40px;
             text-align: center;
             font-size: 15px;
             color: #666666;
@@ -239,41 +228,40 @@
         /* Плавающая кнопка */
         .fab {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 68px;
-            height: 68px;
+            bottom: 25px;
+            right: 25px;
+            width: 62px;
+            height: 62px;
             background: #ffffff;
             color: #000000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 34px;
-            line-height: 1;
-            box-shadow: 0 10px 40px rgba(255,255,255,0.3);
+            font-size: 32px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
             cursor: pointer;
             z-index: 9999;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         .fab:hover {
-            transform: scale(1.12) rotate(90deg);
+            transform: scale(1.15);
         }
 
         .menu {
             position: fixed;
-            bottom: 130px;
-            right: 40px;
+            bottom: 100px;
+            right: 25px;
             background: #111111;
-            border-radius: 28px;
-            padding: 16px 8px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            border-radius: 24px;
+            padding: 12px 6px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             display: none;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             z-index: 9998;
-            min-width: 240px;
+            min-width: 220px;
             opacity: 0;
             transform: scale(0.9);
             transition: all 0.3s ease;
@@ -286,12 +274,12 @@
         }
 
         .menu-item {
-            padding: 16px 28px;
-            font-size: 18px;
+            padding: 14px 24px;
+            font-size: 17px;
             font-weight: 500;
             color: #ffffff;
             text-decoration: none;
-            border-radius: 16px;
+            border-radius: 14px;
             transition: 0.3s;
         }
 
@@ -300,20 +288,17 @@
         }
 
         /* Адаптивность */
-        @media (max-width: 1024px) {
-            .services-grid, .advantages-grid { grid-template-columns: repeat(2, 1fr); }
-        }
         @media (max-width: 768px) {
-            .hero-text { font-size: 68px; letter-spacing: -4px; }
-            .photo-frame { width: 240px; height: 240px; }
+            .hero-text { font-size: 64px; letter-spacing: -4px; }
+            .photo-frame { width: 220px; height: 220px; }
+            h2 { font-size: 36px; }
             section { padding: 80px 20px; }
-            h2 { font-size: 38px; }
-            .big-section { padding: 50px 30px; border-radius: 32px; }
-            .services-grid, .advantages-grid { grid-template-columns: 1fr; }
-            .fab { bottom: 24px; right: 24px; width: 58px; height: 58px; font-size: 30px; }
+            .big-section { padding: 40px 20px; }
         }
+
         @media (max-width: 480px) {
-            .hero-text { font-size: 54px; }
+            .hero-text { font-size: 52px; }
+            .photo-frame { width: 200px; height: 200px; }
         }
     </style>
 </head>
@@ -321,7 +306,7 @@
 
     <canvas id="neuron-canvas"></canvas>
 
-    <!-- HERO (с анимацией появления) -->
+    <!-- HERO -->
     <section class="hero" id="hero-section">
         <div class="photo-frame">
             <img src="https://i.ibb.co/P83nqzT/temp-image.jpg" alt="BlackSoul Team Photo">
@@ -336,11 +321,11 @@
     <section id="team">
         <h2 class="section-header">О команде</h2>
         <div class="big-section">
-            <p style="font-size: 21px; max-width: 780px; margin: 0 auto; text-align: center; line-height: 1.65;">
+            <p style="font-size: 20px; max-width: 720px; margin: 0 auto; text-align: center; line-height: 1.65;">
                 BlackSoul — это закрытая команда профессионалов, которая работает в тени и даёт своим участникам максимум возможностей. 
                 Мы объединяем опыт, технологии и скорость. Присоединяйся — и начни зарабатывать уже сегодня.
             </p>
-            <p style="margin-top: 28px; font-size: 18px; color: #aaaaaa; text-align: center;">
+            <p style="margin-top: 28px; font-size: 17px; color: #aaaaaa; text-align: center;">
                 Более 3 лет на рынке • 1200+ участников • Полная анонимность и защита
             </p>
         </div>
@@ -403,18 +388,19 @@
     </div>
 
     <script>
-        // ====================== НЕЙРОНЫ — ВСЕГДА В ДВИЖЕНИИ ======================
+        // ====================== НЕЙРОНЫ С АДАПТАЦИЕЙ ======================
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
+        let neuronCount = window.innerWidth < 768 ? 55 : 130;   // меньше на телефоне
 
         class Neuron {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.8;
-                this.vy = (Math.random() - 0.5) * 1.8;
-                this.radius = Math.random() * 3.5 + 2;
+                this.vx = (Math.random() - 0.5) * 1.6;
+                this.vy = (Math.random() - 0.5) * 1.6;
+                this.radius = Math.random() * 3 + 1.8;
             }
             update() {
                 this.x += this.vx;
@@ -423,9 +409,9 @@
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-                if (Math.random() < 0.035) {
-                    this.vx += (Math.random() - 0.5) * 1.3;
-                    this.vy += (Math.random() - 0.5) * 1.3;
+                if (Math.random() < 0.03) {
+                    this.vx += (Math.random() - 0.5) * 1.1;
+                    this.vy += (Math.random() - 0.5) * 1.1;
                 }
 
                 this.vx *= 0.965;
@@ -436,6 +422,8 @@
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            neuronCount = window.innerWidth < 768 ? 55 : 130;
+            createNeurons(neuronCount);
         }
 
         function createNeurons(count) {
@@ -444,12 +432,12 @@
         }
 
         function drawNeurons() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.09)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => {
                 p.update();
-                ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                ctx.fillStyle = 'rgba(255,255,255,0.88)';
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
@@ -460,9 +448,9 @@
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 165) {
-                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/165})`;
-                        ctx.lineWidth = 1.1;
+                    if (dist < 140) {
+                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/140})`;
+                        ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -473,7 +461,7 @@
             requestAnimationFrame(drawNeurons);
         }
 
-        // ====================== АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ======================
+        // ====================== Анимация появления ======================
         function animateSections() {
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
@@ -482,7 +470,7 @@
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.15 });
 
             sections.forEach(section => observer.observe(section));
         }
@@ -534,31 +522,30 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Запуск всего
+        // Запуск
         window.onload = () => {
             resizeCanvas();
-            createNeurons(130);
+            createNeurons(neuronCount);
             drawNeurons();
 
             window.addEventListener('resize', () => {
                 resizeCanvas();
-                createNeurons(130);
             });
 
             renderNews();
-            animateSections();   // анимация появления всех секций
+            animateSections();
 
-            // Анимация главного текста
+            // Анимация главного заголовка
             const mainText = document.getElementById('main-text');
             setTimeout(() => {
                 mainText.style.transition = 'all 1.4s ease';
                 mainText.style.opacity = '1';
-            }, 400);
+            }, 300);
 
-            // Показываем hero блок
+            // Показ hero
             setTimeout(() => {
                 document.getElementById('hero-section').classList.add('visible');
-            }, 100);
+            }, 200);
         };
     </script>
 </body>
