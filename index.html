@@ -29,7 +29,7 @@
 
         /* Анимации */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -111,6 +111,14 @@
             max-width: 1280px;
             margin: 0 auto;
             position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h2 {
@@ -127,14 +135,14 @@
             padding: 70px 60px;
         }
 
-        /* Сервисы */
-        .services-grid {
+        /* Сервисы, преимущества, новости и т.д. */
+        .services-grid, .advantages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 28px;
         }
 
-        .service-card {
+        .service-card, .adv-card {
             background: #1a1a1a;
             border-radius: 32px;
             padding: 40px 24px;
@@ -143,52 +151,19 @@
             border: 1px solid #222222;
         }
 
-        .service-card:hover {
+        .service-card:hover, .adv-card:hover {
             transform: translateY(-12px);
             border-color: #ffffff;
         }
 
-        .service-card h3 {
+        .service-card h3, .adv-card h3 {
             font-size: 28px;
             font-weight: 600;
             margin: 20px 0 12px;
         }
 
-        .service-card p {
+        .service-card p, .adv-card p {
             font-size: 16px;
-            color: #bbbbbb;
-            line-height: 1.5;
-        }
-
-        /* Преимущества */
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .adv-card {
-            background: #1a1a1a;
-            border-radius: 32px;
-            padding: 40px 24px;
-            text-align: center;
-            transition: all 0.4s ease;
-            border: 1px solid #222222;
-        }
-
-        .adv-card:hover {
-            transform: translateY(-12px);
-            border-color: #ffffff;
-        }
-
-        .adv-card h3 {
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .adv-card p {
-            font-size: 16.5px;
             color: #bbbbbb;
             line-height: 1.5;
         }
@@ -211,43 +186,6 @@
             transform: translateY(-8px);
         }
 
-        .news-date {
-            padding: 20px 28px 0;
-            font-size: 15px;
-            color: #888888;
-            font-weight: 500;
-        }
-
-        .news-content {
-            padding: 0 28px 28px;
-        }
-
-        .news-theme {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 12px 0 16px;
-        }
-
-        .news-text {
-            font-size: 17px;
-            color: #cccccc;
-            margin-bottom: 24px;
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .news-link {
-            color: #ffffff;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .news-link:hover {
-            text-decoration: underline;
-        }
-
         /* Футер */
         footer {
             background: #000000;
@@ -258,7 +196,7 @@
             color: #666666;
         }
 
-        /* Плавающая кнопка — теперь с иконкой меню (три линии) */
+        /* Плавающая кнопка */
         .fab {
             position: fixed;
             bottom: 40px;
@@ -271,7 +209,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 34px;           /* размер иконки */
+            font-size: 34px;
             line-height: 1;
             box-shadow: 0 10px 40px rgba(255,255,255,0.3);
             cursor: pointer;
@@ -323,46 +261,19 @@
 
         /* Адаптивность */
         @media (max-width: 1024px) {
-            .services-grid, .advantages-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .services-grid, .advantages-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 768px) {
-            .hero-text {
-                font-size: 68px;
-                letter-spacing: -4px;
-            }
-            .photo-frame {
-                width: 240px;
-                height: 240px;
-            }
-            section {
-                padding: 80px 20px;
-            }
-            h2 {
-                font-size: 38px;
-            }
-            .big-section {
-                padding: 50px 30px;
-                border-radius: 32px;
-            }
-            .services-grid, .advantages-grid {
-                grid-template-columns: 1fr;
-            }
-            .fab {
-                bottom: 24px;
-                right: 24px;
-                width: 58px;
-                height: 58px;
-                font-size: 30px;
-            }
+            .hero-text { font-size: 68px; letter-spacing: -4px; }
+            .photo-frame { width: 240px; height: 240px; }
+            section { padding: 80px 20px; }
+            h2 { font-size: 38px; }
+            .big-section { padding: 50px 30px; border-radius: 32px; }
+            .services-grid, .advantages-grid { grid-template-columns: 1fr; }
+            .fab { bottom: 24px; right: 24px; width: 58px; height: 58px; font-size: 30px; }
         }
-
         @media (max-width: 480px) {
-            .hero-text {
-                font-size: 54px;
-            }
+            .hero-text { font-size: 54px; }
         }
     </style>
 </head>
@@ -381,7 +292,7 @@
         </a>
     </section>
 
-    <!-- О команде -->
+    <!-- Остальные секции (будут анимироваться при скролле) -->
     <section id="team">
         <h2 class="section-header">О команде</h2>
         <div class="big-section">
@@ -395,74 +306,35 @@
         </div>
     </section>
 
-    <!-- Наши сервисы -->
     <section id="services">
         <h2 class="section-header">Наши сервисы</h2>
         <div class="big-section">
             <div class="services-grid">
-                <div class="service-card">
-                    <h3>Escort</h3>
-                    <p>Профессиональное сопровождение и организация встреч высшего уровня.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Trade</h3>
-                    <p>Торговля на крипто- и финансовых рынках с использованием закрытых сигналов.</p>
-                </div>
-                <div class="service-card">
-                    <h3>NFT</h3>
-                    <p>Работа с невзаимозаменяемыми токенами: минтинг, трейдинг и коллаборации.</p>
-                </div>
-                <div class="service-card">
-                    <h3>ВУ</h3>
-                    <p>Оформление и работа с водительскими удостоверениями международного образца.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Narko</h3>
-                    <p>Закрытые поставки и дистрибуция в премиальном сегменте.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Stiller</h3>
-                    <p>Кража коллекционных токенов с помощью специализированных программ.</p>
-                </div>
+                <div class="service-card"><h3>Escort</h3><p>Профессиональное сопровождение и организация встреч высшего уровня.</p></div>
+                <div class="service-card"><h3>Trade</h3><p>Торговля на крипто- и финансовых рынках с использованием закрытых сигналов.</p></div>
+                <div class="service-card"><h3>NFT</h3><p>Работа с невзаимозаменяемыми токенами: минтинг, трейдинг и коллаборации.</p></div>
+                <div class="service-card"><h3>ВУ</h3><p>Оформление и работа с водительскими удостоверениями международного образца.</p></div>
+                <div class="service-card"><h3>Narko</h3><p>Закрытые поставки и дистрибуция в премиальном сегменте.</p></div>
+                <div class="service-card"><h3>Stiller</h3><p>Кража коллекционных токенов с помощью специализированных программ.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Новости -->
     <section id="news">
         <h2 class="section-header">Последние новости</h2>
         <div id="news-container" class="news-grid"></div>
     </section>
 
-    <!-- Преимущества -->
     <section id="advantages">
         <h2 class="section-header">Преимущества команды</h2>
         <div class="big-section">
             <div class="advantages-grid">
-                <div class="adv-card">
-                    <h3>Мануалы</h3>
-                    <p>Подробная инструкция для начала работы.</p>
-                </div>
-                <div class="adv-card">
-                    <h3>Безопасность</h3>
-                    <p>Защита ваших средств.</p>
-                </div>
-                <div class="adv-card">
-                    <h3>Быстрый старт</h3>
-                    <p>Начните зарабатывать уже сейчас.</p>
-                </div>
-                <div class="adv-card">
-                    <h3>Поддержка</h3>
-                    <p>Быстрый ответ от технической поддержки. Работа 24 на 7.</p>
-                </div>
-                <div class="adv-card">
-                    <h3>Акции</h3>
-                    <p>Каждую неделю акции с процентом выплат, розыгрыши аккаунтов, VIP материалов, VPN ключей и многим другим.</p>
-                </div>
-                <div class="adv-card">
-                    <h3>Наставники</h3>
-                    <p>Опытные наставники в своём направлении.</p>
-                </div>
+                <div class="adv-card"><h3>Мануалы</h3><p>Подробная инструкция для начала работы.</p></div>
+                <div class="adv-card"><h3>Безопасность</h3><p>Защита ваших средств.</p></div>
+                <div class="adv-card"><h3>Быстрый старт</h3><p>Начните зарабатывать уже сейчас.</p></div>
+                <div class="adv-card"><h3>Поддержка</h3><p>Быстрый ответ от технической поддержки. Работа 24 на 7.</p></div>
+                <div class="adv-card"><h3>Акции</h3><p>Каждую неделю акции с процентом выплат, розыгрыши аккаунтов, VIP материалов, VPN ключей и многим другим.</p></div>
+                <div class="adv-card"><h3>Наставники</h3><p>Опытные наставники в своём направлении.</p></div>
             </div>
         </div>
     </section>
@@ -475,7 +347,7 @@
         </p>
     </footer>
 
-    <!-- Плавающая кнопка — теперь с иконкой меню (три линии) -->
+    <!-- Плавающая кнопка -->
     <div class="fab" id="fab-button" onclick="toggleMenu()">☰</div>
 
     <div class="menu" id="floating-menu">
@@ -488,7 +360,7 @@
     </div>
 
     <script>
-        // ====================== НЕЙРОНЫ ======================
+        // ====================== НЕЙРОНЫ — ВСЕГДА В ДВИЖЕНИИ ======================
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -497,17 +369,25 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.1;
-                this.vy = (Math.random() - 0.5) * 1.1;
+                this.vx = (Math.random() - 0.5) * 1.8;
+                this.vy = (Math.random() - 0.5) * 1.8;
                 this.radius = Math.random() * 3.5 + 2;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
+
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                this.vx *= 0.97;
-                this.vy *= 0.97;
+
+                // Случайное лёгкое ускорение, чтобы нейроны никогда не останавливались
+                if (Math.random() < 0.04) {
+                    this.vx += (Math.random() - 0.5) * 1.2;
+                    this.vy += (Math.random() - 0.5) * 1.2;
+                }
+
+                this.vx *= 0.965;
+                this.vy *= 0.965;
             }
         }
 
@@ -522,24 +402,25 @@
         }
 
         function drawNeurons() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.085)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => {
                 p.update();
-                ctx.fillStyle = 'rgba(255,255,255,0.88)';
+                ctx.fillStyle = 'rgba(255,255,255,0.9)';
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
             });
 
+            // Соединения
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 160) {
-                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/160})`;
+                    if (dist < 165) {
+                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist/165})`;
                         ctx.lineWidth = 1.1;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -548,10 +429,25 @@
                     }
                 }
             }
+
             requestAnimationFrame(drawNeurons);
         }
 
-        // Новости и функции
+        // ====================== АНИМАЦИЯ ПОЯВЛЕНИЯ БЛОКОВ ПРИ СКРОЛЛЕ ======================
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('section:not(.hero)');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            sections.forEach(section => observer.observe(section));
+        }
+
+        // ====================== Остальной код ======================
         const newsData = [
             { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
             { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
@@ -598,17 +494,19 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Запуск
         window.onload = () => {
             resizeCanvas();
-            createNeurons(110);
-            drawNeurons();
+            createNeurons(130);           // больше частиц для живости
+            drawNeurons();                // запускаем анимацию нейронов
 
             window.addEventListener('resize', () => {
                 resizeCanvas();
-                createNeurons(110);
+                createNeurons(130);
             });
 
             renderNews();
+            animateOnScroll();            // анимация появления блоков при скролле
 
             const mainText = document.getElementById('main-text');
             mainText.style.opacity = '0';
