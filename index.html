@@ -18,6 +18,13 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        .button-emoji {
+            width: 22px;
+            height: 22px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
         
         .team-title {
             display: flex;
@@ -107,12 +114,17 @@
 
         .hero-text {
             font-size: 78px;
-            font-weight: 900;
-            letter-spacing: -5px;
+            font-weight: 700;
+            letter-spacing: -3px;
             margin-bottom: 30px;
             text-transform: uppercase;
         }
 
+        .hero-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
         .hero-button {
             padding: 16px 48px;
             font-size: 20px;
@@ -328,6 +340,7 @@
         </div>
         <h1 class="hero-text" id="main-text">Black Soul</h1>
         <a href="https://t.me/BSoulBot" onclick="goToBot()" class="hero-button">
+            <img src="gif/bot.gif" class="button-emoji" alt="emoji">
             Перейти в бота
         </a>
     </section>
