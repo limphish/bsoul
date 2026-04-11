@@ -309,7 +309,7 @@
                 Мы объединяем опыт, технологии и скорость. Присоединяйся — и начни зарабатывать уже сегодня.
             </p>
             <p style="margin-top: 28px; font-size: 17px; color: #aaaaaa; text-align: center;">
-                Более 3 лет на рынке • 1200+ участников • Полная анонимность и защита
+                Более 3 лет в сфере • 1200+ участников • Полная анонимность и защита
             </p>
         </div>
     </section>
@@ -356,12 +356,11 @@
 
     <div class="fab" id="fab-button" onclick="toggleMenu()">☰</div>
     <div class="menu" id="floating-menu">
-        <a href="#" class="menu-item" onclick="navigateToSection('team')">Начать</a>
-        <a href="#" class="menu-item" onclick="navigateToSection('team')">Персонал</a>
-        <a href="#" onclick="goToBot()" class="menu-item">Боты</a>
-        <a href="#" class="menu-item" onclick="navigateToSection('news')">Поддержка</a>
-        <a href="#" class="menu-item" onclick="navigateToSection('team')">О нас</a>
-        <a href="#" class="menu-item" onclick="navigateToSection('news')">Блог</a>
+        <a href="https://t.me/BSoulBot" target="_blank" class="menu-item">Начать</a>
+        <a href="https://staff.bsoul.team" target="_blank" class="menu-item">Персонал</a>
+        <a href="https://bots.bsoul.team" target="_blank" class="menu-item">Боты</a>
+        <a href="https://t.me/BSoul_SupportBot" target="_blank" class="menu-item">Поддержка</a>
+        <a href="http://blog.bsoul.team/about_us" target="_blank" class="menu-item">О нас</a>
     </div>
 
     <script>
@@ -460,9 +459,9 @@
         }
 
         const newsData = [
-            { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
-            { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
-            { date: "07.04.2026", theme: "Обновление мануалов", text: "Добавлены новые гайды по Trade и NFT. Скачивайте в личном кабинете.", link: "#" }
+            { date: "11.04.2026", theme: "Новая архитектура", text: "Теперь в системе выплат добавлен xRocket в режиме мульти счёта.", link: "#" },
+            { date: "09.04.2026", theme: "Скорость работы", text: "Мы оптимизировали выдачу реквизитов для депозитов. Теперь процесс занимает до 2 минут - быстро, предсказуемо и без задержек.", link: "#" },
+            { date: "07.04.2026", theme: "Безопасность", text: "Мы начали разработку собственного VPN-решения с белыми списками и шифрованием трафика. Безопасность пользователей и инфраструктуры - наш приоритет.", link: "#" }
         ];
 
         function renderNews() {
@@ -481,7 +480,7 @@
         }
 
         function goToBot() {
-            window.open('https://t.me/your_bot_username', '_blank');
+            window.open('https://t.me/BSoulBot', '_blank');
         }
 
         let menuOpen = false;
