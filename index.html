@@ -19,6 +19,25 @@
             box-sizing: border-box;
         }
         
+        .team-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .about-emoji-title {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+            transition: transform 0.3s ease;
+        }
+        
+        .about-emoji-title:hover {
+            transform: scale(1.15) rotate(6deg);
+        }
+        
         .about-emoji {
             width: 34px;
             height: 34px;
