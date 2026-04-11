@@ -18,7 +18,15 @@
             padding: 0;
             box-sizing: border-box;
         }
-       
+        
+        .about-emoji {
+            width: 34px;
+            height: 34px;
+            vertical-align: middle;
+            margin-right: 8px;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.25));
+        }
+        
         body {
             font-family: 'Inter', system-ui, sans-serif;
             background-color: var(--bg);
@@ -173,6 +181,11 @@
             }
         }
 
+
+        .about-emoji:hover {
+            transform: scale(1.2);
+            transition: 0.3s;
+        }
         .news-card {
             background: #111111;
             border-radius: 28px;
@@ -305,9 +318,13 @@
         <h2 class="section-header">О команде</h2>
         <div class="big-section">
             <p style="font-size: 20px; max-width: 720px; margin: 0 auto; text-align: center; line-height: 1.65;">
+                
+                <img src="gif/about_us.gif" class="about-emoji" alt="emoji">
+    
                 BlackSoul — это закрытая команда профессионалов, которая работает в тени и даёт своим участникам максимум возможностей.
                 Мы объединяем опыт, технологии и скорость. Присоединяйся — и начни зарабатывать уже сегодня.
             </p>
+    
             <p style="margin-top: 28px; font-size: 17px; color: #aaaaaa; text-align: center;">
                 Более 3 лет в сфере • 1200+ участников • Полная анонимность и защита
             </p>
