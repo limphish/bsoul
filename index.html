@@ -29,7 +29,7 @@
 
         /* Анимации */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
+            from { opacity: 0; transform: translateY(60px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -39,7 +39,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Нейроны */
+        /* Нейроны — всегда в движении */
         #neuron-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -57,6 +57,14 @@
             text-align: center;
             position: relative;
             padding: 0 20px;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .photo-frame {
@@ -67,7 +75,6 @@
             border: 6px solid #ffffff;
             box-shadow: 0 0 60px rgba(255,255,255,0.2);
             margin-bottom: 40px;
-            animation: fadeInUp 1.2s ease forwards;
         }
 
         .photo-frame img {
@@ -112,8 +119,8 @@
             margin: 0 auto;
             position: relative;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         section.visible {
@@ -135,7 +142,7 @@
             padding: 70px 60px;
         }
 
-        /* Сервисы, преимущества, новости и т.д. */
+        /* Сервисы и преимущества */
         .services-grid, .advantages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -168,7 +175,7 @@
             line-height: 1.5;
         }
 
-        /* Новости */
+        /* Новости — классический вид */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -184,6 +191,39 @@
 
         .news-card:hover {
             transform: translateY(-8px);
+        }
+
+        .news-date {
+            padding: 20px 28px 0;
+            font-size: 15px;
+            color: #888888;
+            font-weight: 500;
+        }
+
+        .news-content {
+            padding: 0 28px 28px;
+        }
+
+        .news-theme {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 12px 0 16px;
+        }
+
+        .news-text {
+            font-size: 17px;
+            color: #cccccc;
+            margin-bottom: 24px;
+        }
+
+        .news-link {
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .news-link:hover {
+            text-decoration: underline;
         }
 
         /* Футер */
@@ -281,8 +321,8 @@
 
     <canvas id="neuron-canvas"></canvas>
 
-    <!-- HERO -->
-    <section class="hero">
+    <!-- HERO (с анимацией появления) -->
+    <section class="hero" id="hero-section">
         <div class="photo-frame">
             <img src="https://i.ibb.co/P83nqzT/temp-image.jpg" alt="BlackSoul Team Photo">
         </div>
@@ -292,7 +332,7 @@
         </a>
     </section>
 
-    <!-- Остальные секции (будут анимироваться при скролле) -->
+    <!-- О команде -->
     <section id="team">
         <h2 class="section-header">О команде</h2>
         <div class="big-section">
@@ -306,6 +346,7 @@
         </div>
     </section>
 
+    <!-- Наши сервисы -->
     <section id="services">
         <h2 class="section-header">Наши сервисы</h2>
         <div class="big-section">
@@ -320,11 +361,13 @@
         </div>
     </section>
 
+    <!-- Новости -->
     <section id="news">
         <h2 class="section-header">Последние новости</h2>
         <div id="news-container" class="news-grid"></div>
     </section>
 
+    <!-- Преимущества -->
     <section id="advantages">
         <h2 class="section-header">Преимущества команды</h2>
         <div class="big-section">
@@ -380,10 +423,9 @@
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-                // Случайное лёгкое ускорение, чтобы нейроны никогда не останавливались
-                if (Math.random() < 0.04) {
-                    this.vx += (Math.random() - 0.5) * 1.2;
-                    this.vy += (Math.random() - 0.5) * 1.2;
+                if (Math.random() < 0.035) {
+                    this.vx += (Math.random() - 0.5) * 1.3;
+                    this.vy += (Math.random() - 0.5) * 1.3;
                 }
 
                 this.vx *= 0.965;
@@ -413,7 +455,6 @@
                 ctx.fill();
             });
 
-            // Соединения
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -429,25 +470,24 @@
                     }
                 }
             }
-
             requestAnimationFrame(drawNeurons);
         }
 
-        // ====================== АНИМАЦИЯ ПОЯВЛЕНИЯ БЛОКОВ ПРИ СКРОЛЛЕ ======================
-        function animateOnScroll() {
-            const sections = document.querySelectorAll('section:not(.hero)');
+        // ====================== АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ======================
+        function animateSections() {
+            const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.15 });
+            }, { threshold: 0.2 });
 
             sections.forEach(section => observer.observe(section));
         }
 
-        // ====================== Остальной код ======================
+        // Новости
         const newsData = [
             { date: "11.04.2026", theme: "Новый уровень безопасности", text: "Мы обновили систему защиты аккаунтов. Теперь ваши средства под двойным шифрованием.", link: "#" },
             { date: "09.04.2026", theme: "Запуск VIP-акции", text: "Розыгрыш 5 аккаунтов + 30% бонус к выводу. Участвуйте прямо сейчас.", link: "#" },
@@ -494,11 +534,11 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Запуск
+        // Запуск всего
         window.onload = () => {
             resizeCanvas();
-            createNeurons(130);           // больше частиц для живости
-            drawNeurons();                // запускаем анимацию нейронов
+            createNeurons(130);
+            drawNeurons();
 
             window.addEventListener('resize', () => {
                 resizeCanvas();
@@ -506,14 +546,19 @@
             });
 
             renderNews();
-            animateOnScroll();            // анимация появления блоков при скролле
+            animateSections();   // анимация появления всех секций
 
+            // Анимация главного текста
             const mainText = document.getElementById('main-text');
-            mainText.style.opacity = '0';
             setTimeout(() => {
                 mainText.style.transition = 'all 1.4s ease';
                 mainText.style.opacity = '1';
-            }, 300);
+            }, 400);
+
+            // Показываем hero блок
+            setTimeout(() => {
+                document.getElementById('hero-section').classList.add('visible');
+            }, 100);
         };
     </script>
 </body>
