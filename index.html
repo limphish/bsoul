@@ -470,6 +470,21 @@
     </div>
 
     <script>
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = Array.from({length: 120}, () => ({
+                x: Math.random()*canvas.width,
+                y: Math.random()*canvas.height,
+                size: Math.random()*2,
+                speed: Math.random()*0.5
+            }));
+        }
+
         // === Canvas Neurons ===
         const canvas = document.getElementById('neuron-canvas');
         const ctx = canvas.getContext('2d');
