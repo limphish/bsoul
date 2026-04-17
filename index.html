@@ -25,8 +25,71 @@
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
-        }
+        }    
 
+        /* ==================== УЛУЧШЕННЫЙ FOOTER ==================== */
+        footer {
+            background: #0a0a0a;
+            border-top: 1px solid #222222;
+            padding: 70px 20px 50px;
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #444, transparent);
+        }
+        
+        .footer-main {
+            font-size: 19px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .footer-text {
+            color: #777;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+        
+        .footer-links {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 14.5px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #1a1a1a;
+            font-size: 13.5px;
+            color: #555;
+        }
+        
         #stars-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -417,10 +480,18 @@
     </section>
 
     <footer>
-        <p>Политика защищена</p>
-        <p style="margin-top: 12px; font-size: 18px; font-weight: 600; color: #ffffff;">
-            BlackSoul. Все права защищены © 2026
-        </p>
+        <p class="footer-main">BlackSoul</p>
+        <p class="footer-text">Закрытая команда профессионалов • Работаем в тени</p>
+    
+        <div class="footer-links">
+            <a href="https://t.me/BSoul_SupportBot" target="_blank">Поддержка</a>
+            <a href="http://blog.bsoul.team/about_us" target="_blank">О нас</a>
+            <a href="https://blog.bsoul.team/chat_rules" onclick="alert('Политика BSoul')">Политика BSoul</a>
+        </div>
+    
+        <div class="copyright">
+            Все права защищены © 2026 BlackSoul
+        </div>
     </footer>
 
     <!-- Floating Action Button + Menu -->
