@@ -469,19 +469,20 @@
 
 
 <script>
+// ===== STARS (плавные, без прерывания) =====
 const canvas = document.getElementById('stars-canvas');
 const ctx = canvas.getContext('2d');
 
 let stars = [];
-let STAR_COUNT = 140;
+const STAR_COUNT = 120;
 
-// === resize без сброса анимации ===
+// resize БЕЗ пересоздания звёзд
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
 
-// === создание звёзд (ОДИН раз) ===
+// создаём звезды ОДИН раз
 function createStars() {
     stars = [];
     for (let i = 0; i < STAR_COUNT; i++) {
@@ -489,19 +490,18 @@ function createStars() {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             size: Math.random() * 2 + 0.3,
-            speed: Math.random() * 0.7 + 0.2
+            speed: Math.random() * 0.6 + 0.2
         });
     }
 }
 
-// === анимация (БЕЗ ПРЕРЫВАНИЯ) ===
+// бесконечная анимация
 function drawStars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     stars.forEach(s => {
         s.y += s.speed;
 
-        // плавное появление сверху (не телепорт резко)
         if (s.y > canvas.height) {
             s.y = -5;
             s.x = Math.random() * canvas.width;
@@ -516,12 +516,54 @@ function drawStars() {
     requestAnimationFrame(drawStars);
 }
 
-// === INIT ===
+// ===== SAFE MENU (чтобы не ломался сайт) =====
+let menuOpen = false;
+function toggleMenu() {
+    const menu = document.getElementById('floating-menu');
+    const btn = document.getElementById('fab-button');
+
+    // если элементов нет — просто игнор
+    if (!menu || !btn) return;
+
+    menuOpen = !menuOpen;
+
+    if (menuOpen) {
+        menu.classList.add('show');
+        btn.style.transform = 'rotate(135deg)';
+    } else {
+        menu.classList.remove('show');
+        btn.style.transform = 'rotate(0deg)';
+    }
+}
+
+// ===== INIT =====
 resizeCanvas();
 createStars();
 drawStars();
 
 window.addEventListener('resize', resizeCanvas);
+
+// ===== PHOTO PARALLAX =====
+const container = document.getElementById('photo-container');
+const frame = document.getElementById('photo-frame');
+
+if (container && frame) {
+    container.addEventListener('mousemove', e => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        frame.style.transform = `
+            rotateX(${ -y / 20 }deg)
+            rotateY(${ x / 20 }deg)
+            scale(1.05)
+        `;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        frame.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+    });
+}
 </script>
     
 </body>
