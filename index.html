@@ -467,171 +467,62 @@
         </a>
     </div>
 
-    <script>
-        const canvas = document.getElementById('stars-canvas');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            stars = Array.from({length: 120}, () => ({
-                x: Math.random()*canvas.width,
-                y: Math.random()*canvas.height,
-                size: Math.random()*2,
-                speed: Math.random()*0.5
-            }));
+
+<script>
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+
+let stars = [];
+let STAR_COUNT = 140;
+
+// === resize без сброса анимации ===
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+// === создание звёзд (ОДИН раз) ===
+function createStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.3,
+            speed: Math.random() * 0.7 + 0.2
+        });
+    }
+}
+
+// === анимация (БЕЗ ПРЕРЫВАНИЯ) ===
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    stars.forEach(s => {
+        s.y += s.speed;
+
+        // плавное появление сверху (не телепорт резко)
+        if (s.y > canvas.height) {
+            s.y = -5;
+            s.x = Math.random() * canvas.width;
         }
 
-        // === Canvas Neurons ===
-        let particles = [];
-        let isMobile = window.innerWidth < 768;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+    });
 
-        class Neuron {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * (isMobile ? 0.8 : 1.6);
-                this.vy = (Math.random() - 0.5) * (isMobile ? 0.8 : 1.6);
-                this.radius = Math.random() * 3 + 2;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                this.vx *= 0.97;
-                this.vy *= 0.97;
-            }
-        }
+    requestAnimationFrame(drawStars);
+}
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            isMobile = window.innerWidth < 768;
-            createNeurons(isMobile ? 48 : 130);
-        }
+// === INIT ===
+resizeCanvas();
+createStars();
+drawStars();
 
-        function createNeurons(count) {
-            particles = [];
-            for (let i = 0; i < count; i++) particles.push(new Neuron());
-        }
-
-        function drawNeurons() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                ctx.fillStyle = 'rgba(255,255,255,0.85)';
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(drawNeurons);
-        }
-
-        // === Движение фото за курсором ===
-        function initPhotoMovement() {
-            const container = document.getElementById('photo-container');
-            const frame = document.getElementById('photo-frame');
-            const img = document.getElementById('team-photo');
-
-            if (isMobile) return; // на телефоне отключаем
-
-            const maxMove = 18; // максимальное смещение в px
-
-            container.addEventListener('mousemove', (e) => {
-                const rect = container.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                const mouseX = e.clientX - centerX;
-                const mouseY = e.clientY - centerY;
-
-                const rotateX = (mouseY / rect.height) * -12;  // небольшой tilt
-                const rotateY = (mouseX / rect.width) * 12;
-
-                const moveX = (mouseX / rect.width) * maxMove;
-                const moveY = (mouseY / rect.height) * maxMove;
-
-                frame.style.transform = `translate(${moveX}px, ${moveY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                img.style.transform = `scale(1.06)`;
-            });
-
-            container.addEventListener('mouseleave', () => {
-                frame.style.transform = `translate(0, 0) rotateX(0deg) rotateY(0deg)`;
-                img.style.transform = `scale(1)`;
-            });
-        }
-
-        // === Остальные функции ===
-        function animateSections() {
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.15 });
-            sections.forEach(sec => observer.observe(sec));
-        }
-
-        const newsData = [
-            { date: "11.04.2026", theme: "Новая архитектура", text: "Теперь в системе выплат добавлен xRocket в режиме мульти счёта.", link: "https://t.me/+zRlXdiF2Er4zYzJi" },
-            { date: "09.04.2026", theme: "Скорость работы", text: "Мы оптимизировали выдачу реквизитов для депозитов. Теперь процесс занимает до 2 минут - быстро, предсказуемо и без задержек.", link: "https://t.me/+zRlXdiF2Er4zYzJi" },
-            { date: "07.04.2026", theme: "Безопасность", text: "Мы начали разработку собственного VPN-решения с белыми списками и шифрованием трафика. Безопасность пользователей и инфраструктуры - наш приоритет.", link: "https://t.me/+zRlXdiF2Er4zYzJi" }
-        ];
-
-        function renderNews() {
-            const container = document.getElementById('news-container');
-            container.innerHTML = '';
-            newsData.forEach(news => {
-                container.innerHTML += `
-                    <div class="news-card">
-                        <div class="news-date">${news.date}</div>
-                        <h3 class="news-theme">${news.theme}</h3>
-                        <p class="news-text">${news.text}</p>
-                        <a href="${news.link}" class="news-link">Посмотреть →</a>
-                    </div>
-                `;
-            });
-        }
-
-        function goToBot() {
-            window.open('https://t.me/BSoulBot', '_blank');
-        }
-
-        let menuOpen = false;
-        function toggleMenu() {
-            const menu = document.getElementById('floating-menu');
-            menuOpen = !menuOpen;
-            if (menuOpen) {
-                menu.classList.add('show');
-                document.getElementById('fab-button').style.transform = 'rotate(135deg)';
-            } else {
-                menu.classList.remove('show');
-                document.getElementById('fab-button').style.transform = 'rotate(0deg)';
-            }
-        }
-
-        function navigateToSection(section) {
-            toggleMenu();
-            const el = document.getElementById(section);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Запуск всего
-        window.onload = () => {
-            resizeCanvas();
-            drawNeurons();
-            window.addEventListener('resize', resizeCanvas);
-            renderNews();
-            animateSections();
-            initPhotoMovement();
-
-            setTimeout(() => {
-                document.getElementById('hero-section').classList.add('visible');
-            }, 150);
-        };
-    </script>
+window.addEventListener('resize', resizeCanvas);
+</script>
+    
 </body>
 </html>
