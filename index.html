@@ -116,10 +116,11 @@
 
         .photo-container {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 1920px;
+            height: 880px;
+            max-width: 100%; /* чтобы не ломалось на маленьких экранах */
             margin-bottom: 40px;
-            perspective: 1000px; /* для небольшого 3D-эффекта */
+            perspective: 1000px;
         }
 
         .photo-frame {
@@ -344,7 +345,7 @@
 
         @media (max-width: 768px) {
             .hero-text { font-size: 62px; }
-            .photo-container { width: 220px; height: 220px; }
+            .photo-container { width: 100%; height: auto; aspect-ratio: 1920 / 880;}
             section { padding: 80px 20px; }
             h2 { font-size: 36px; }
            
