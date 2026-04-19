@@ -477,7 +477,7 @@
         <a href="https://t.me/BSoulBot" target="_blank" class="menu-item ref-link">
             <img src="gif/start.gif" class="menu-emoji"> Начать
         </a>
-        <a href="https://t.me/BSoulBot?start=top" class="menu-item">
+        <a href="https://t.me/BSoulBot?start=top" target="_blank" class="menu-item ref-link">
             <img src="gif/cash.gif" class="menu-emoji"> Касса
         </a>
         <a href="https://staff.bsoul.team" target="_blank" class="menu-item">
@@ -495,8 +495,6 @@
     </div>
 
 <script>
-
-<script>
 // ===== REFERRAL SYSTEM =====
 let referralCode = null;
 
@@ -504,13 +502,13 @@ function getReferralCode() {
     const urlParams = new URLSearchParams(window.location.search);
     const path = window.location.pathname;
 
-    // Поддержка bsoul.team/r=CODE
+    // Проверка формата bsoul.team/r=CODE
     if (path.includes('/r=')) {
-        const match = path.match(/\/r=([A-Za-z0-9]+)/i);
+        const match = path.match(/\/r=([A-Za-z0-9]+)/);
         if (match) referralCode = match[1];
     }
     
-    // Поддержка ?r=CODE
+    // Проверка GET-параметра ?r=CODE (на всякий случай)
     if (!referralCode && urlParams.has('r')) {
         referralCode = urlParams.get('r');
     }
@@ -522,26 +520,24 @@ function updateReferralLinks() {
     const refCode = getReferralCode();
     if (!refCode) return;
 
-    // Находим ТОЛЬКО те ссылки на BSoulBot, у которых ИЗНАЧАЛЬНО нет параметров
-    // То есть ссылки вида: https://t.me/BSoulBot   (без ?start=...)
+    // Находим все ссылки, ведущие на BSoulBot
     const botLinks = document.querySelectorAll('a[href^="https://t.me/BSoulBot"]');
-
+    
     botLinks.forEach(link => {
-        let href = link.getAttribute('href').trim();
-
-        // Пропускаем ссылку "Касса", если у неё уже есть ?start=top
-        if (href.includes('?start=top')) {
-            return; // ничего не делаем с этой ссылкой
+        let href = link.getAttribute('href');
+        
+        // Если уже есть ?start= — заменяем
+        if (href.includes('?start=')) {
+            href = href.replace(/\?start=[A-Za-z0-9]+/, `?start=${refCode}`);
+        } 
+        // Если нет параметров — добавляем
+        else if (href.includes('?')) {
+            href += `&start=${refCode}`;
+        } else {
+            href += `?start=${refCode}`;
         }
-
-        // Если ссылка уже имеет какие-то параметры — не трогаем
-        if (href.includes('?')) {
-            return;
-        }
-
-        // Добавляем реферальный параметр только к чистым ссылкам
-        const newHref = href + `?start=${refCode}`;
-        link.setAttribute('href', newHref);
+        
+        link.setAttribute('href', href);
     });
 }
 
